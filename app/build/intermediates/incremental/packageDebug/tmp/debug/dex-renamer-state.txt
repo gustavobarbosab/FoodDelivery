@@ -1,0 +1,4 @@
+#Thu May 16 15:35:21 BRT 2019
+base.0=/home/usertqi/Documentos/FoodDelivery/app/build/intermediates/dex/debug/mergeDexDebug/out
+path.0=classes.dex
+renamed.0=classes.dex
