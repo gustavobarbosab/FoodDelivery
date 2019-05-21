@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="txtNameFood"
+            type="Integer" />
+
+        <variable
+            name="txtPriceFood"
+            type="Integer" />
+
+        <variable
+            name="imgFood"
+            type="Integer" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FDBC44"
+        app:cardCornerRadius="50dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="90dp"
+            android:layout_height="190dp">
+
+            <ImageView
+                android:id="@+id/ivShortcutFood"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/bg_circle_white"
+                android:padding="15dp"
+                android:layout_marginTop="15dp"
+                android:src="@{imgFood}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_pasta" />
+
+
+            <TextView
+                android:id="@+id/tvShortcutFoodName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{txtNameFood}"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tvShortcutFoodNamePrice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivShortcutFood"
+                tools:text="Macarrão" />
+
+            <TextView
+                android:id="@+id/tvShortcutFoodNamePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{txtPriceFood}"
+                android:textColor="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvShortcutFoodName"
+                tools:text="R$ 12" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v7.widget.CardView>
+</layout>
