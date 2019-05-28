@@ -4,8 +4,8 @@
     android:id="@+id/cardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardElevation="5dp"
     android:layout_margin="4dp"
+    app:cardCornerRadius="10dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent">
 
@@ -36,6 +36,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="Hamburguer Caseiro"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/txtPrice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button"
@@ -70,12 +72,14 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
+            android:text="R$ 12,00"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvItemFoodName"
-            android:text="R$ 12,00" />
+            app:layout_constraintTop_toBottomOf="@+id/tvItemFoodName" />
 
     </android.support.constraint.ConstraintLayout>
 

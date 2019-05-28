@@ -15,10 +15,46 @@
             layout="@layout/content_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             app:layout_constraintBottom_toTopOf="@+id/btHamburguer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="@+id/guideline"
+            app:layout_constraintVertical_bias="0.0"
             app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:padding="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/search"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/include"
+            app:layout_constraintTop_toTopOf="@+id/search"
+            app:srcCompat="@drawable/ic_search" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Search..."
+            app:layout_constraintBottom_toBottomOf="@+id/ivSearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivSearch"
+            app:layout_constraintTop_toBottomOf="@+id/include"
+            app:layout_constraintVertical_bias="0.0" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -41,13 +77,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintBottom_toTopOf="@+id/frFoodHome"
             app:layout_constraintEnd_toStartOf="@+id/btPasta"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
+            app:layout_constraintTop_toBottomOf="@+id/search" />
 
         <include
             android:id="@+id/btPasta"
@@ -79,7 +115,7 @@
             android:id="@+id/frFoodHome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

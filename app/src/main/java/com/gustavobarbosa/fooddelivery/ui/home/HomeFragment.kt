@@ -2,6 +2,8 @@ package com.gustavobarbosa.fooddelivery.ui.home
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +38,14 @@ class HomeFragment : Fragment(), HomeContract.View {
         bindShortcutImages()
         bindShortcutTextName()
         bindShortcutTextPrice()
+        bindButtonsColor()
         bindList()
+    }
+
+    private fun bindButtonsColor() {
+        (btHamburguer as CardView).setCardBackgroundColor(ContextCompat.getColor(this.context!!,R.color.colorPrimaryDark))
+        (btPasta as CardView).setCardBackgroundColor(ContextCompat.getColor(this.context!!,android.R.color.white))
+        (btPizza as CardView).setCardBackgroundColor(ContextCompat.getColor(this.context!!,android.R.color.white))
     }
 
     private fun bindList() {
@@ -52,7 +61,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     }
 
     private fun bindShortcutTextName() {
-        btHamburguer.tvShortcutFoodName.text = "Hamburguer"
+        btHamburguer.tvShortcutFoodName.text = "Burguer"
         btPasta.tvShortcutFoodName.text = "Pasta"
         btPizza.tvShortcutFoodName.text = "Pizza"
     }
