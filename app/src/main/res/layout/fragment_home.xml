@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="65dp" />
+            app:layout_constraintGuide_begin="35dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline2"
@@ -32,18 +32,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="24dp" />
 
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:queryHint="Digite o que deseja"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/include" />
-
         <include
             android:id="@+id/btHamburguer"
             layout="@layout/content_button_food"
@@ -51,12 +39,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toStartOf="@+id/btPasta"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+            app:layout_constraintTop_toBottomOf="@+id/include" />
 
         <include
             android:id="@+id/btPasta"
@@ -65,11 +53,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btHamburguer"
             app:layout_constraintEnd_toStartOf="@+id/btPizza"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btHamburguer"
-            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+            app:layout_constraintTop_toTopOf="@+id/btHamburguer" />
 
         <include
             android:id="@+id/btPizza"
@@ -78,11 +66,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btPasta"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btPasta"
-            app:layout_constraintTop_toBottomOf="@+id/searchView" />
+            app:layout_constraintTop_toTopOf="@+id/btPasta" />
 
         <FrameLayout
             android:id="@+id/frFoodHome"
@@ -92,7 +80,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/btPasta" />
+            app:layout_constraintTop_toBottomOf="@+id/btHamburguer" />
 
     </android.support.constraint.ConstraintLayout>
 
