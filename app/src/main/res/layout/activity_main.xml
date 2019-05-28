@@ -15,6 +15,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/background"
+        app:layout_constraintBottom_toTopOf="@+id/mainBottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/mainBottomNavigationView"
         android:layout_width="match_parent"
