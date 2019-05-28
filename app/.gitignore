@@ -1,5 +1,16 @@
-# Built application files
-/build
+#built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
 
 # Crashlytics configuations
 com_crashlytics_export_strings.xml
@@ -25,7 +36,11 @@ local.properties
 .idea/modules.xml
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
+.idea/caches/
+/captures
+.externalNativeBuild
 *.iml
+build/
 
 # OS-specific files
 .DS_Store
@@ -36,4 +51,4 @@ local.properties
 ehthumbs.db
 Thumbs.db
 
-\.idea/caches/
+
