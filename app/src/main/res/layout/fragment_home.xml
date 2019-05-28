@@ -75,7 +75,7 @@
         <FrameLayout
             android:id="@+id/frFoodHome"
             android:layout_width="0dp"
-            android:layout_height="190dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
