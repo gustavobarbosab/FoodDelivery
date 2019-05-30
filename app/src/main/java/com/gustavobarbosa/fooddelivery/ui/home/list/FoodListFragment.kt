@@ -6,17 +6,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.gustavobarbosa.fooddelivery.R
-import kotlinx.android.synthetic.main.fragment_food_list.*
+import com.gustavobarbosa.fooddelivery.data.database.datasource.LocalFoodDataSource
+import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
+import kotlinx.android.synthetic.main.fragment_food_list.rvFood
 
 class FoodListFragment: Fragment() {
 
-    private val foodSelectedListFragment = object :FoodAdapter.ClickAddFoodListener {
-        override fun onFoodChoose(foodName: String) {
-            Toast.makeText(context,foodName,Toast.LENGTH_SHORT).show()
-        }
-    }
+    //TODO isso será movido para o injector
+    private val presenter = FoodListPresenter(FoodRepository(LocalFoodDataSource))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +29,7 @@ class FoodListFragment: Fragment() {
     }
 
     private fun setupView() {
-        rvFood.adapter = FoodAdapter(foodSelectedListFragment)
+        rvFood.adapter = FoodAdapter(presenter)
         rvFood.layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
     }
 }

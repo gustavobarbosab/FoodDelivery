@@ -1,11 +1,14 @@
 package com.gustavobarbosa.fooddelivery.data.repository.food
 
-class FoodRepository : FoodDataSource {
+class FoodRepository(private val localDataSource: FoodDataSource) : FoodDataSource {
+
+    override fun getFoodCart(): List<String> = localDataSource.getFoodCart()
+
     override fun saveFoodOnCart(food: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        localDataSource.saveFoodOnCart(food)
     }
 
     override fun removeFoodOfCart(food: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        localDataSource.removeFoodOfCart(food)
     }
 }
