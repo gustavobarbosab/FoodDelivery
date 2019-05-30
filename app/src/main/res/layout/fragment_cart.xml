@@ -20,7 +20,7 @@
         app:layout_constraintGuide_begin="24dp" />
 
     <include
-        android:id="@+id/include2"
+        android:id="@+id/titleCart"
         layout="@layout/content_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@+id/titleCart"
         tools:listitem="@layout/item_cart"
         tools:orientation="horizontal"
         tools:scrollbars="horizontal"/>

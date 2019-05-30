@@ -6,12 +6,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import com.gustavobarbosa.fooddelivery.R
 import com.gustavobarbosa.fooddelivery.data.database.datasource.LocalFoodDataSource
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
+import kotlinx.android.synthetic.main.content_logo.view.primaryTitle
+import kotlinx.android.synthetic.main.content_logo.view.secondaryTitle
 import kotlinx.android.synthetic.main.fragment_cart.rvCart
+import kotlinx.android.synthetic.main.fragment_cart.titleCart
 
 class CartFragment : Fragment(), CartContract.View {
 
@@ -27,6 +28,8 @@ class CartFragment : Fragment(), CartContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        titleCart.primaryTitle.text = "My"
+        titleCart.secondaryTitle.text = "Orders"
         rvCart.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         rvCart.adapter = adapter
     }
