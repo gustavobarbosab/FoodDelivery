@@ -46,7 +46,7 @@ class HomeFragment : Fragment(), HomeContract.View {
 
     private fun bindList() {
         val ft = childFragmentManager.beginTransaction()
-        ft.add(R.id.frFoodHome, FoodListFragment())
+        ft.replace(R.id.frFoodHome, FoodListFragment())
         ft.commit()
     }
 
