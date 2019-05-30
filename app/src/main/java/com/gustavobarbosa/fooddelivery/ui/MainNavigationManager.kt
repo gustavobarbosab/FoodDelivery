@@ -71,12 +71,16 @@ class MainNavigationManager(
         bottomNavigationView?.menu?.getItem(position)?.isChecked = true
     }
 
-    private fun getLastFragmentOnBackStack() = fragmentManager?.let { it.fragments[it.fragments.size - 1] }
+    private fun getLastFragmentOnBackStack(): Fragment? = fragmentManager?.let {
+        val stackSize = it.fragments.size
+        return if (stackSize > 0) it.fragments[stackSize - 1] else null
+    }
 
     private fun loadFragment(fragment: Fragment?,
                              backEnabled: Boolean = false,
                              tag: String) {
         fragment?.let {
+            if (getLastFragmentOnBackStack() == it) return
             fragmentManager?.beginTransaction()?.let { transaction ->
                 if (backEnabled) {
                     transaction.addToBackStack(null)
