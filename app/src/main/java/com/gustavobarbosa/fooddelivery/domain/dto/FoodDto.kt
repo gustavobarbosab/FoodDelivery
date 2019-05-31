@@ -1,4 +1,7 @@
 package com.gustavobarbosa.fooddelivery.domain.dto
 
-class FoodDto {
-}
+data class FoodDto(
+    val name: String,
+    val price: Float,
+    val description: String
+)

@@ -1,16 +1,17 @@
 package com.gustavobarbosa.fooddelivery.data.database.datasource
 
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodDataSource
+import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
 
 object LocalFoodDataSource : FoodDataSource{
 
-    private val listFood: MutableList<String> = mutableListOf()
+    private val listFood: MutableList<FoodModel> = mutableListOf()
 
-    override fun saveFoodOnCart(food: String) {
+    override fun saveFoodOnCart(food: FoodModel) {
         listFood.add(food)
     }
 
-    override fun removeFoodOfCart(food: String) {
+    override fun removeFoodOfCart(food: FoodModel) {
         listFood.remove(food)
     }
 

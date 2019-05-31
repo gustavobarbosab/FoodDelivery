@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.gustavobarbosa.fooddelivery.R
 import com.gustavobarbosa.fooddelivery.data.database.datasource.LocalFoodDataSource
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
+import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
 import kotlinx.android.synthetic.main.content_logo.view.primaryTitle
 import kotlinx.android.synthetic.main.content_logo.view.secondaryTitle
 import kotlinx.android.synthetic.main.fragment_cart.rvCart
@@ -39,7 +40,7 @@ class CartFragment : Fragment(), CartContract.View {
         presenter.reloadCart()
     }
 
-    override fun reloadCart(foods: List<String>) {
+    override fun reloadCart(foods: List<FoodModel>) {
         adapter.arrayFood = foods
     }
 
