@@ -6,6 +6,8 @@ interface CartContract {
 
     interface View {
         fun reloadCart(foods: List<FoodModel>)
+        fun showButtonNext()
+        fun hideButtonNext()
     }
 
     interface Presenter {

@@ -12,6 +12,7 @@ import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
 import kotlinx.android.synthetic.main.content_logo.view.primaryTitle
 import kotlinx.android.synthetic.main.content_logo.view.secondaryTitle
+import kotlinx.android.synthetic.main.fragment_cart.btCheckout
 import kotlinx.android.synthetic.main.fragment_cart.rvCart
 import kotlinx.android.synthetic.main.fragment_cart.titleCart
 
@@ -42,6 +43,14 @@ class CartFragment : Fragment(), CartContract.View {
 
     override fun reloadCart(foods: List<FoodModel>) {
         adapter.arrayFood = foods
+    }
+
+    override fun showButtonNext() {
+        btCheckout.visibility = View.VISIBLE
+    }
+
+    override fun hideButtonNext() {
+        btCheckout.visibility = View.GONE
     }
 
     override fun onDestroy() {
