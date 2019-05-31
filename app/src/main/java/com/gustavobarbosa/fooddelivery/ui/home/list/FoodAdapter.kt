@@ -29,7 +29,7 @@ class FoodAdapter(private val listener: ClickAddFoodListener) : RecyclerView.Ada
         val item = arrayFood[position]
 
         holder.tvFoodName.text = item.name
-        holder.tvPrice.text = item.price.toString()
+        holder.tvPrice.text = item.priceFormatted
 
         holder.btAddFood.setOnClickListener {
             listener.onFoodChoose(item)

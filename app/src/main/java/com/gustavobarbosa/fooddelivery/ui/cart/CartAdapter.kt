@@ -27,7 +27,7 @@ class CartAdapter() : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
         val item = arrayFood[position]
 
         holder.tvFoodName.text = item.name
-        holder.tvPrice.text = item.price.toString()
+        holder.tvPrice.text = item.priceFormatted
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

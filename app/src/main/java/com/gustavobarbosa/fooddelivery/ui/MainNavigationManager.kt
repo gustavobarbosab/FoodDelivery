@@ -39,7 +39,7 @@ class MainNavigationManager(
     }
 
     private fun create() {
-        loadFragment(HomeFragment.newInstance(), false, TAG_DEFAULT)
+        loadFragment(HomeFragment.newInstance(), false, TAG_HOME)
         fragmentManager?.addOnBackStackChangedListener(backStackListener)
     }
 
@@ -80,7 +80,7 @@ class MainNavigationManager(
                              backEnabled: Boolean = false,
                              tag: String) {
         fragment?.let {
-            if (getLastFragmentOnBackStack() == it) return
+            if (getLastFragmentOnBackStack()?.tag == tag) return
             fragmentManager?.beginTransaction()?.let { transaction ->
                 if (backEnabled) {
                     transaction.addToBackStack(null)
@@ -95,7 +95,6 @@ class MainNavigationManager(
         private const val INDEX_CART = 1
         private const val INDEX_PROFILE = 2
 
-        private const val TAG_DEFAULT = "TAG_DEFAULT"
         private const val TAG_HOME = "TAG_HOME"
         private const val TAG_CART = "TAG_CART"
         private const val TAG_PROFILE = "TAG_PROFILE"
