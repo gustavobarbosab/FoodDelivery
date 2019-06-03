@@ -15,9 +15,9 @@ class MainNavigationManager(
 ) :
     BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private var homeFragment: HomeFragment? = HomeFragment.newInstance().apply { retainInstance = true }
-    private var cartFragment: CartFragment? = CartFragment.newInstance().apply { retainInstance = true }
-    private var profileFragment: ProfileFragment? = ProfileFragment.newInstance().apply { retainInstance = true }
+    private var homeFragment: HomeFragment? = HomeFragment.newInstance()
+    private var cartFragment: CartFragment? = CartFragment.newInstance()
+    private var profileFragment: ProfileFragment? = ProfileFragment.newInstance()
 
     private var backStackListener = FragmentManager.OnBackStackChangedListener {
         val selectedFragment = getLastFragmentOnBackStack()
@@ -83,7 +83,7 @@ class MainNavigationManager(
             if (getLastFragmentOnBackStack()?.tag == tag) return
             fragmentManager?.beginTransaction()?.let { transaction ->
                 if (backEnabled) {
-                    transaction.addToBackStack(null)
+                    transaction.addToBackStack(tag)
                 }
                 transaction.replace(R.id.containerMain, it, tag).commit()
             }

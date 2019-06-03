@@ -26,7 +26,7 @@ class CartPresenterTest {
 
     @Test
     fun `reload cart with empty list and notify view`() {
-        every { repository.getFoodCart() } returns listOf()
+        every { repository.getFoodCart() } returns arrayListOf()
 
         cartPresenter.reloadCart()
 
@@ -37,7 +37,7 @@ class CartPresenterTest {
 
     @Test
     fun `reload cart and notify view`() {
-        every { repository.getFoodCart() } returns listOf(FoodModel("",22F,""))
+        every { repository.getFoodCart() } returns arrayListOf(FoodModel("",22F,""))
 
         cartPresenter.reloadCart()
 
@@ -48,8 +48,37 @@ class CartPresenterTest {
     }
 
     @Test
+    fun `remove item from cart`() {
+        val model = FoodModel("",22F,"")
+        every { repository.removeFoodOfCart(model) } returns arrayListOf(model)
+
+        cartPresenter.removeItem(model)
+
+        verify(exactly = 0) {
+            view.hideButtonNext()
+        }
+        verify(exactly = 1) {
+            view.reloadCart(any())
+            view.showButtonNext()
+        }
+
+    }
+
+    @Test
+    fun `remove item from cart and empty cart`() {
+        val model = FoodModel("",22F,"")
+        every { repository.removeFoodOfCart(model) } returns arrayListOf()
+
+        cartPresenter.removeItem(model)
+
+        verify(exactly = 1) {
+            view.hideButtonNext()
+        }
+    }
+
+    @Test
     fun `assert if view is destroyed`() {
-        every { repository.getFoodCart() } returns listOf(FoodModel("",22F,""))
+        every { repository.getFoodCart() } returns arrayListOf(FoodModel("",22F,""))
 
         cartPresenter.destroy()
         cartPresenter.reloadCart()

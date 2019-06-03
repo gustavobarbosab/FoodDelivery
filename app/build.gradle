@@ -45,7 +45,7 @@ dependencies {
     // Unit Tests
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     testImplementation 'junit:junit:4.12'
-    testImplementation "io.mockk:mockk:1.9"
+    testImplementation "io.mockk:mockk:1.9.3"
 
     // Instrumented Tests
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
