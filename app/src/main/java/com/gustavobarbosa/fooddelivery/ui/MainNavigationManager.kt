@@ -15,9 +15,9 @@ class MainNavigationManager(
 ) :
     BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private var homeFragment: HomeFragment? = HomeFragment.newInstance().apply { retainInstance = true }
-    private var cartFragment: CartFragment? = CartFragment.newInstance().apply { retainInstance = true }
-    private var profileFragment: ProfileFragment? = ProfileFragment.newInstance().apply { retainInstance = true }
+    private var homeFragment: HomeFragment? = HomeFragment.newInstance()
+    private var cartFragment: CartFragment? = CartFragment.newInstance()
+    private var profileFragment: ProfileFragment? = ProfileFragment.newInstance()
 
     private var backStackListener = FragmentManager.OnBackStackChangedListener {
         when (getActualFragment()) {

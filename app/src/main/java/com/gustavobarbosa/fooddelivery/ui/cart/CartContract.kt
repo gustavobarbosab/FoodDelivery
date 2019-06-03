@@ -12,5 +12,6 @@ interface CartContract {
 
     interface Presenter: CartAdapter.OnClickItem {
         fun reloadCart()
+        fun destroy()
     }
 }
