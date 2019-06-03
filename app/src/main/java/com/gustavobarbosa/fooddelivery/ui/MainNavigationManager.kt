@@ -20,8 +20,7 @@ class MainNavigationManager(
     private var profileFragment: ProfileFragment? = ProfileFragment.newInstance().apply { retainInstance = true }
 
     private var backStackListener = FragmentManager.OnBackStackChangedListener {
-        val selectedFragment = getLastFragmentOnBackStack()
-        when (selectedFragment) {
+        when (getActualFragment()) {
             is HomeFragment -> {
                 selectCheckedBottomItem(INDEX_HOME)
             }
@@ -39,8 +38,14 @@ class MainNavigationManager(
     }
 
     private fun create() {
-        loadFragment(HomeFragment.newInstance(), false, TAG_HOME)
+        loadFragment(homeFragment, false, TAG_HOME)
         fragmentManager?.addOnBackStackChangedListener(backStackListener)
+    }
+
+    private fun getActualFragment(): Fragment? {
+        var fragment: Fragment? = null
+        fragmentManager?.fragments?.onEach { if(it.isVisible) fragment = it }
+        return fragment
     }
 
     fun destroy() {
@@ -71,21 +76,17 @@ class MainNavigationManager(
         bottomNavigationView?.menu?.getItem(position)?.isChecked = true
     }
 
-    private fun getLastFragmentOnBackStack(): Fragment? = fragmentManager?.let {
-        val stackSize = it.fragments.size
-        return if (stackSize > 0) it.fragments[stackSize - 1] else null
-    }
-
     private fun loadFragment(fragment: Fragment?,
                              backEnabled: Boolean = false,
                              tag: String) {
         fragment?.let {
-            if (getLastFragmentOnBackStack()?.tag == tag) return
+            if (it.isVisible) return
             fragmentManager?.beginTransaction()?.let { transaction ->
+                transaction.replace(R.id.containerMain, it, tag)
                 if (backEnabled) {
-                    transaction.addToBackStack(null)
+                    transaction.addToBackStack(tag)
                 }
-                transaction.replace(R.id.containerMain, it, tag).commit()
+                transaction.commit()
             }
         }
     }
