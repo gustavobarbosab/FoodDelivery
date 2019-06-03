@@ -17,7 +17,7 @@ class CartPresenter(var view: CartContract.View?,
         }
     }
 
-    fun destroy() {
+    override fun destroy() {
         view = null
     }
 }

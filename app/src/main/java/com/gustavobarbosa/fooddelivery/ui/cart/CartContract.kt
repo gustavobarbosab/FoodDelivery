@@ -12,5 +12,6 @@ interface CartContract {
 
     interface Presenter {
         fun reloadCart()
+        fun destroy()
     }
 }
