@@ -10,6 +10,8 @@ import com.gustavobarbosa.fooddelivery.R
 import com.gustavobarbosa.fooddelivery.data.database.datasource.LocalFoodDataSource
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
+import com.gustavobarbosa.fooddelivery.utils.hideView
+import com.gustavobarbosa.fooddelivery.utils.showView
 import kotlinx.android.synthetic.main.content_logo.view.primaryTitle
 import kotlinx.android.synthetic.main.content_logo.view.secondaryTitle
 import kotlinx.android.synthetic.main.fragment_cart.btCheckout
@@ -19,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_cart.titleCart
 class CartFragment : Fragment(), CartContract.View {
 
     private val presenter = CartPresenter(this,FoodRepository(LocalFoodDataSource))
-    private val adapter = CartAdapter()
+    private val adapter = CartAdapter(presenter)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,7 @@ class CartFragment : Fragment(), CartContract.View {
 
     override fun onResume() {
         super.onResume()
+        presenter.view = this
         presenter.reloadCart()
     }
 
@@ -46,11 +49,11 @@ class CartFragment : Fragment(), CartContract.View {
     }
 
     override fun showButtonNext() {
-        btCheckout.visibility = View.VISIBLE
+        btCheckout.showView(0)
     }
 
     override fun hideButtonNext() {
-        btCheckout.visibility = View.GONE
+        btCheckout.hideView(300)
     }
 
     override fun onDestroy() {

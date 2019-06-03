@@ -10,7 +10,7 @@ interface CartContract {
         fun hideButtonNext()
     }
 
-    interface Presenter {
+    interface Presenter: CartAdapter.OnClickItem {
         fun reloadCart()
     }
 }
