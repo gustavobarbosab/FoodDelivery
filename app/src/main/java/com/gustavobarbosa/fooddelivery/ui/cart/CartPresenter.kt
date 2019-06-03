@@ -31,7 +31,7 @@ class CartPresenter(
         }
     }
 
-    fun destroy() {
+    override fun destroy() {
         view = null
     }
 }
