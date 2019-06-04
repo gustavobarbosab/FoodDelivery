@@ -37,7 +37,7 @@ class CartPresenterTest {
 
     @Test
     fun `reload cart and notify view`() {
-        every { repository.getFoodCart() } returns arrayListOf(FoodModel("",22F,""))
+        every { repository.getFoodCart() } returns arrayListOf(FoodModel("",22.0,""))
 
         cartPresenter.reloadCart()
 
@@ -49,7 +49,7 @@ class CartPresenterTest {
 
     @Test
     fun `remove item from cart`() {
-        val model = FoodModel("",22F,"")
+        val model = FoodModel("",22.0,"")
         every { repository.removeFoodOfCart(model) } returns arrayListOf(model)
 
         cartPresenter.removeItem(model)
@@ -66,7 +66,7 @@ class CartPresenterTest {
 
     @Test
     fun `remove item from cart and empty cart`() {
-        val model = FoodModel("",22F,"")
+        val model = FoodModel("",22.0,"")
         every { repository.removeFoodOfCart(model) } returns arrayListOf()
 
         cartPresenter.removeItem(model)
@@ -78,7 +78,7 @@ class CartPresenterTest {
 
     @Test
     fun `assert if view is destroyed`() {
-        every { repository.getFoodCart() } returns arrayListOf(FoodModel("",22F,""))
+        every { repository.getFoodCart() } returns arrayListOf(FoodModel("",22.0,""))
 
         cartPresenter.destroy()
         cartPresenter.reloadCart()
@@ -88,6 +88,20 @@ class CartPresenterTest {
             view.showButtonNext()
             view.hideButtonNext()
         }
+    }
 
+    @Test
+    fun `verify cart total price`() {
+        every { repository.getFoodCart() } returns arrayListOf(
+            FoodModel("",22.40,""),
+            FoodModel("",20.30,"")
+        )
+        cartPresenter.reloadCart()
+
+        verify(exactly = 1) {
+            view.reloadCart(any())
+            view.showButtonNext()
+            view.updatePrice(42.70)
+        }
     }
 }

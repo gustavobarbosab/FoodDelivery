@@ -25,10 +25,21 @@ class CartPresenter(
             if (it.isEmpty()) {
                 view?.hideButtonNext()
             } else {
+                calcTotalPrice()
                 view?.reloadCart(it)
                 view?.showButtonNext()
             }
         }
+    }
+
+    private fun calcTotalPrice() {
+        var sum = 0.0
+
+        list?.forEach {
+            sum =  it.price.plus(sum)
+        }
+
+        view?.updatePrice(sum)
     }
 
     override fun destroy() {

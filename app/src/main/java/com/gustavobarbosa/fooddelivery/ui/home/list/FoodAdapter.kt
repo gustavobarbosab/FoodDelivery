@@ -12,10 +12,10 @@ import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
 class FoodAdapter(private val listener: ClickAddFoodListener) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
 
     private val arrayFood: List<FoodModel> = listOf(
-        FoodModel(name = "BBQ Burguer", price = 25.5F, description = "Cebola, hamburguer, pão de batata e batata rustica"),
-        FoodModel(name = "Fit Burguer", price = 23.5F, description = "Cebola, hamburguer, pão de batata e batata rustica"),
-        FoodModel(name = "Ring Burguer", price = 20.5F, description = "Cebola, hamburguer, pão de batata e batata rustica"),
-        FoodModel(name = "Rustic Burguer", price = 29.7F, description = "Cebola, hamburguer, pão de batata e batata rustica")
+        FoodModel(name = "BBQ Burguer", price = 25.5, description = "Cebola, hamburguer, pão de batata e batata rustica"),
+        FoodModel(name = "Fit Burguer", price = 23.5, description = "Cebola, hamburguer, pão de batata e batata rustica"),
+        FoodModel(name = "Ring Burguer", price = 20.5, description = "Cebola, hamburguer, pão de batata e batata rustica"),
+        FoodModel(name = "Rustic Burguer", price = 29.7, description = "Cebola, hamburguer, pão de batata e batata rustica")
     )
 
     override fun getItemCount(): Int = arrayFood.size

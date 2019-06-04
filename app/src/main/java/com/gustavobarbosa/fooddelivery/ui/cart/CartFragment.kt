@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.content_logo.view.secondaryTitle
 import kotlinx.android.synthetic.main.fragment_cart.btCheckout
 import kotlinx.android.synthetic.main.fragment_cart.rvCart
 import kotlinx.android.synthetic.main.fragment_cart.titleCart
+import kotlinx.android.synthetic.main.fragment_cart.tvTotalPrice
 
 class CartFragment : Fragment(), CartContract.View {
 
@@ -54,6 +55,10 @@ class CartFragment : Fragment(), CartContract.View {
 
     override fun hideButtonNext() {
         btCheckout.hideView(300)
+    }
+
+    override fun updatePrice(price: Double) {
+        tvTotalPrice.text = price.toString()
     }
 
     override fun onDestroy() {
