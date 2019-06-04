@@ -105,5 +105,19 @@ class CartPresenterTest {
         }
     }
 
+    @Test
+    fun `verify hide total price with empty cart`() {
+        every { repository.getFoodCart() } returns arrayListOf()
+        cartPresenter.reloadCart()
 
+        verify(exactly = 0) {
+            view.reloadCart(any())
+            view.showButtonNext()
+            view.updatePrice(any())
+        }
+        verify(exactly = 1) {
+            view.hideButtonNext()
+            view.hideTotalPriceView()
+        }
+    }
 }

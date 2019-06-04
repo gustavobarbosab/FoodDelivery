@@ -64,7 +64,7 @@ class CartFragment : Fragment(), CartContract.View {
     }
 
     override fun hideTotalPriceView() {
-        groupTotalPrice.visibility = View.VISIBLE
+        groupTotalPrice.visibility = View.GONE
     }
 
     override fun onDestroy() {

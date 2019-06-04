@@ -39,6 +39,7 @@ class CartPresenter(
 
     private fun hideViewsWithEmptyCart() {
         view?.hideTotalPriceView()
+        view?.hideButtonNext()
     }
 
     private fun getTotalPrice(): String {
