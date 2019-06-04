@@ -130,4 +130,10 @@
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
+    <android.support.constraint.Group
+        android:id="@+id/groupTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tvTotalPrice,tvTotal"/>
+
 </android.support.constraint.ConstraintLayout>

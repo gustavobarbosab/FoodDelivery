@@ -15,6 +15,7 @@ import com.gustavobarbosa.fooddelivery.utils.showView
 import kotlinx.android.synthetic.main.content_logo.view.primaryTitle
 import kotlinx.android.synthetic.main.content_logo.view.secondaryTitle
 import kotlinx.android.synthetic.main.fragment_cart.btCheckout
+import kotlinx.android.synthetic.main.fragment_cart.groupTotalPrice
 import kotlinx.android.synthetic.main.fragment_cart.rvCart
 import kotlinx.android.synthetic.main.fragment_cart.titleCart
 import kotlinx.android.synthetic.main.fragment_cart.tvTotalPrice
@@ -57,8 +58,13 @@ class CartFragment : Fragment(), CartContract.View {
         btCheckout.hideView(300)
     }
 
-    override fun updatePrice(price: Double) {
-        tvTotalPrice.text = price.toString()
+    override fun updatePrice(price: String) {
+        groupTotalPrice.visibility = View.VISIBLE
+        tvTotalPrice.text = price
+    }
+
+    override fun hideTotalPriceView() {
+        groupTotalPrice.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

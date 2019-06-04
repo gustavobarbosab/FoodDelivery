@@ -2,6 +2,7 @@ package com.gustavobarbosa.fooddelivery.ui.cart
 
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
+import java.text.NumberFormat
 
 class CartPresenter(
     var view: CartContract.View?,
@@ -12,35 +13,45 @@ class CartPresenter(
 
     override fun removeItem(food: FoodModel) {
         list = foodRepository.removeFoodOfCart(food)
-        updateViewList()
+        updateView()
     }
 
     override fun reloadCart() {
         list = foodRepository.getFoodCart()
-        updateViewList()
+        updateView()
     }
 
-    private fun updateViewList() {
+    private fun updateView() {
         list?.let {
             if (it.isEmpty()) {
-                view?.hideButtonNext()
+                hideViewsWithEmptyCart()
             } else {
-                calcTotalPrice()
-                view?.reloadCart(it)
-                view?.showButtonNext()
+                showViews(it)
             }
         }
     }
 
-    private fun calcTotalPrice() {
+    private fun showViews(list: ArrayList<FoodModel>) {
+        view?.updatePrice(getTotalPrice())
+        view?.reloadCart(list)
+        view?.showButtonNext()
+    }
+
+    private fun hideViewsWithEmptyCart() {
+        view?.hideTotalPriceView()
+    }
+
+    private fun getTotalPrice(): String {
         var sum = 0.0
 
         list?.forEach {
-            sum =  it.price.plus(sum)
+            sum = it.price.plus(sum)
         }
 
-        view?.updatePrice(sum)
+        return getPriceFormatted(sum)
     }
+
+    private fun getPriceFormatted(value: Double) = NumberFormat.getCurrencyInstance().format(value)
 
     override fun destroy() {
         view = null

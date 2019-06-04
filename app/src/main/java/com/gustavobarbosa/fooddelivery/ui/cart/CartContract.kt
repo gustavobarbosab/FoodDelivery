@@ -8,7 +8,8 @@ interface CartContract {
         fun reloadCart(foods: List<FoodModel>)
         fun showButtonNext()
         fun hideButtonNext()
-        fun updatePrice(price: Double)
+        fun updatePrice(price: String)
+        fun hideTotalPriceView()
     }
 
     interface Presenter: CartAdapter.OnClickItem {

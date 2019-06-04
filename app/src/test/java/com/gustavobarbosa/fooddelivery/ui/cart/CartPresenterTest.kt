@@ -101,7 +101,9 @@ class CartPresenterTest {
         verify(exactly = 1) {
             view.reloadCart(any())
             view.showButtonNext()
-            view.updatePrice(42.70)
+            view.updatePrice("R$ 42,70")
         }
     }
+
+
 }
