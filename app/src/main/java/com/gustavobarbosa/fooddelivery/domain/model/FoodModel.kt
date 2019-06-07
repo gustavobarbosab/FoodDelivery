@@ -8,7 +8,8 @@ import java.text.NumberFormat
 data class FoodModel(
     val name: String,
     val price: Double,
-    val description: String
+    val description: String,
+    val imageURL: String
 ) : Parcelable {
     val priceFormatted: String
         get() = NumberFormat.getCurrencyInstance().format(price)
