@@ -35,8 +35,10 @@ class CartPresenterTest {
             repository.getFoodCart(capture(slotListener))
         } answers {
             slotListener.captured.onSuccess(arrayListOf(
-                FoodModel("", 22.40, ""),
-                FoodModel("", 20.30, "")))
+                FoodModel("", 22.40, "", ""),
+                FoodModel("", 20.30, "", "")
+            )
+            )
         }
 
         cartPresenter.reloadCart()
@@ -66,7 +68,7 @@ class CartPresenterTest {
 
     @Test
     fun `remove item from cart`() {
-        val model = FoodModel("", 22.0, "")
+        val model = FoodModel("", 22.0, "", "")
         every {
             repository.removeFoodOfCart(model, capture(slotListener))
         } answers {
@@ -84,7 +86,7 @@ class CartPresenterTest {
 
     @Test
     fun `remove item from cart and empty cart`() {
-        val model = FoodModel("", 22.0, "")
+        val model = FoodModel("", 22.0, "", "")
         every {
             repository.removeFoodOfCart(model, capture(slotListener))
         } answers {
@@ -105,7 +107,9 @@ class CartPresenterTest {
             repository.getFoodCart(capture(slotListener))
         } answers {
             slotListener.captured.onSuccess(arrayListOf(
-                FoodModel("", 22.40, "")))
+                FoodModel("", 22.40, "", "")
+            )
+            )
         }
 
         cartPresenter.destroy()
