@@ -1,7 +1,9 @@
 package com.gustavobarbosa.fooddelivery.ui.cart
 
+import com.gustavobarbosa.fooddelivery.data.repository.ResponseListener
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
+import com.gustavobarbosa.fooddelivery.domain.model.error.BaseError
 import java.text.NumberFormat
 
 class CartPresenter(
@@ -9,26 +11,43 @@ class CartPresenter(
     private val foodRepository: FoodRepository
 ) : CartContract.Presenter {
 
-    var list: ArrayList<FoodModel>? = foodRepository.getFoodCart()
+    var list: ArrayList<FoodModel> = arrayListOf()
 
     override fun removeItem(food: FoodModel) {
-        list = foodRepository.removeFoodOfCart(food)
-        updateView()
+        foodRepository.removeFoodOfCart(food, object : ResponseListener<ArrayList<FoodModel>> {
+            override fun onSuccess(response: ArrayList<FoodModel>) {
+                this@CartPresenter.list = response
+                updateView()
+            }
+
+            override fun onFailure(error: BaseError) {
+                view?.onError(error.cause)
+            }
+        })
     }
 
     override fun reloadCart() {
-        list = foodRepository.getFoodCart()
-        updateView()
+        foodRepository.getFoodCart(object : ResponseListener<ArrayList<FoodModel>> {
+            override fun onSuccess(response: ArrayList<FoodModel>) {
+                this@CartPresenter.list = response
+                updateView()
+            }
+
+            override fun onFailure(error: BaseError) {
+                this@CartPresenter.list.clear()
+                hideViewsWithEmptyCart()
+                view?.onError(error.cause)
+            }
+        })
     }
 
     private fun updateView() {
-        list?.let {
-            if (it.isEmpty()) {
-                hideViewsWithEmptyCart()
-            } else {
-                showViews(it)
-            }
+        if (list.isEmpty()) {
+            hideViewsWithEmptyCart()
+        } else {
+            showViews(list)
         }
+
     }
 
     private fun showViews(list: ArrayList<FoodModel>) {
@@ -45,7 +64,7 @@ class CartPresenter(
     private fun getTotalPrice(): String {
         var sum = 0.0
 
-        list?.forEach {
+        list.forEach {
             sum = it.price.plus(sum)
         }
 
