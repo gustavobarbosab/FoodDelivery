@@ -14,17 +14,14 @@ import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
 import com.gustavobarbosa.fooddelivery.utils.hideView
 import com.gustavobarbosa.fooddelivery.utils.showView
-import kotlinx.android.synthetic.main.content_logo.view.primaryTitle
-import kotlinx.android.synthetic.main.content_logo.view.secondaryTitle
-import kotlinx.android.synthetic.main.fragment_cart.btCheckout
-import kotlinx.android.synthetic.main.fragment_cart.groupTotalPrice
-import kotlinx.android.synthetic.main.fragment_cart.rvCart
-import kotlinx.android.synthetic.main.fragment_cart.titleCart
-import kotlinx.android.synthetic.main.fragment_cart.tvTotalPrice
+import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.content_logo.view.*
+import kotlinx.android.synthetic.main.fragment_cart.*
 
 class CartFragment : Fragment(), CartContract.View {
 
-    private val presenter = CartPresenter(this, FoodRepository(LocalFoodDataSource, RemoteFoodDataSource()))
+    private val presenter =
+        CartPresenter(this, FoodRepository(LocalFoodDataSource, RemoteFoodDataSource()), CompositeDisposable())
     private val adapter = CartAdapter(presenter)
 
     override fun onCreateView(
@@ -38,7 +35,7 @@ class CartFragment : Fragment(), CartContract.View {
         super.onViewCreated(view, savedInstanceState)
         titleCart.primaryTitle.text = "My"
         titleCart.secondaryTitle.text = "Orders"
-        rvCart.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        rvCart.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvCart.adapter = adapter
     }
 

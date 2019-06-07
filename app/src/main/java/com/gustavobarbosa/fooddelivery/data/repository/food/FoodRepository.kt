@@ -1,23 +1,19 @@
 package com.gustavobarbosa.fooddelivery.data.repository.food
 
 import com.gustavobarbosa.fooddelivery.data.network.datasource.RemoteFoodDataSource
-import com.gustavobarbosa.fooddelivery.data.repository.ResponseListener
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
+import io.reactivex.Single
 
 class FoodRepository(
     private val localDataSource: FoodDataSource,
     private val remoteFoodDataSource: RemoteFoodDataSource
 ) : FoodDataSource {
 
-    override fun saveFoodOnCart(food: FoodModel, listener: ResponseListener<ArrayList<FoodModel>>) {
-        localDataSource.saveFoodOnCart(food, listener)
-    }
+    override fun saveFoodOnCart(food: FoodModel): Single<ArrayList<FoodModel>> = localDataSource.saveFoodOnCart(food)
 
-    override fun removeFoodOfCart(food: FoodModel, listener: ResponseListener<ArrayList<FoodModel>>) {
-        localDataSource.removeFoodOfCart(food, listener)
-    }
+    override fun removeFoodOfCart(food: FoodModel): Single<ArrayList<FoodModel>> =
+        localDataSource.removeFoodOfCart(food)
 
-    override fun getFoodCart(listener: ResponseListener<ArrayList<FoodModel>>) {
-        localDataSource.getFoodCart(listener)
-    }
+    override fun getFoodCart(): Single<ArrayList<FoodModel>> = localDataSource.getFoodCart()
+
 }

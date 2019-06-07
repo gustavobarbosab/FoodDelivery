@@ -1,44 +1,53 @@
 package com.gustavobarbosa.fooddelivery.ui.cart
 
-import com.gustavobarbosa.fooddelivery.data.repository.ResponseListener
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
-import com.gustavobarbosa.fooddelivery.domain.model.error.BaseError
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import java.text.NumberFormat
 
 class CartPresenter(
     var view: CartContract.View?,
-    private val foodRepository: FoodRepository
+    private val foodRepository: FoodRepository,
+    private val compositeDisposable: CompositeDisposable
 ) : CartContract.Presenter {
 
     var list: ArrayList<FoodModel> = arrayListOf()
 
     override fun removeItem(food: FoodModel) {
-        foodRepository.removeFoodOfCart(food, object : ResponseListener<ArrayList<FoodModel>> {
-            override fun onSuccess(response: ArrayList<FoodModel>) {
-                this@CartPresenter.list = response
-                updateView()
-            }
-
-            override fun onFailure(error: BaseError) {
-                view?.onError(error.cause)
-            }
-        })
+        compositeDisposable.add(
+            foodRepository
+                .removeFoodOfCart(food)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    this@CartPresenter.list = response
+                    updateView()
+                }, {
+                    it.message?.let { message ->
+                        view?.onError(message)
+                    }
+                })
+        )
     }
 
     override fun reloadCart() {
-        foodRepository.getFoodCart(object : ResponseListener<ArrayList<FoodModel>> {
-            override fun onSuccess(response: ArrayList<FoodModel>) {
-                this@CartPresenter.list = response
-                updateView()
-            }
-
-            override fun onFailure(error: BaseError) {
-                this@CartPresenter.list.clear()
-                hideViewsWithEmptyCart()
-                view?.onError(error.cause)
-            }
-        })
+        compositeDisposable.add(
+            foodRepository
+                .getFoodCart()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    this@CartPresenter.list = response
+                    updateView()
+                }, {
+                    it.message?.let { message ->
+                        hideViewsWithEmptyCart()
+                        view?.onError(message)
+                    }
+                })
+        )
     }
 
     private fun updateView() {
@@ -74,6 +83,7 @@ class CartPresenter(
     private fun getPriceFormatted(value: Double) = NumberFormat.getCurrencyInstance().format(value)
 
     override fun destroy() {
+        compositeDisposable.dispose()
         view = null
     }
 }

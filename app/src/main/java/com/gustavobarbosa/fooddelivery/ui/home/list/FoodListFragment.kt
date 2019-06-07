@@ -10,12 +10,14 @@ import com.gustavobarbosa.fooddelivery.R
 import com.gustavobarbosa.fooddelivery.data.database.datasource.LocalFoodDataSource
 import com.gustavobarbosa.fooddelivery.data.network.datasource.RemoteFoodDataSource
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
-import kotlinx.android.synthetic.main.fragment_food_list.rvFood
+import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.fragment_food_list.*
 
-class FoodListFragment: Fragment() {
+class FoodListFragment : Fragment() {
 
     //TODO isso será movido para o injector
-    private val presenter = FoodListPresenter(FoodRepository(LocalFoodDataSource, RemoteFoodDataSource()))
+    private val presenter =
+        FoodListPresenter(FoodRepository(LocalFoodDataSource, RemoteFoodDataSource()), CompositeDisposable())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +33,6 @@ class FoodListFragment: Fragment() {
 
     private fun setupView() {
         rvFood.adapter = FoodAdapter(presenter)
-        rvFood.layoutManager = LinearLayoutManager(this.context,LinearLayoutManager.HORIZONTAL,false)
+        rvFood.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
     }
 }
