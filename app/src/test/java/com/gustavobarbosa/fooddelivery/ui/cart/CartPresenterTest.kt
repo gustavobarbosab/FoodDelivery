@@ -1,10 +1,13 @@
 package com.gustavobarbosa.fooddelivery.ui.cart
 
+import com.gustavobarbosa.fooddelivery.data.repository.ResponseListener
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
+import io.mockk.verifyAll
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,6 +20,8 @@ class CartPresenterTest {
 
     private val repository: FoodRepository = mockk(relaxed = true)
 
+    private val slotListener = slot<ResponseListener<ArrayList<FoodModel>>>()
+
     private lateinit var cartPresenter: CartContract.Presenter
 
     @Before
@@ -24,87 +29,94 @@ class CartPresenterTest {
         cartPresenter = CartPresenter(view, repository)
     }
 
-    /* @Test
-     fun `reload cart and notify view`() {
-         every { repository.getFoodCart() } returns arrayListOf(
-             FoodModel("", 22.40, ""),
-             FoodModel("", 20.30, "")
-         )
+    @Test
+    fun `reload cart and notify view`() {
+        every {
+            repository.getFoodCart(capture(slotListener))
+        } answers {
+            slotListener.captured.onSuccess(arrayListOf(
+                FoodModel("", 22.40, ""),
+                FoodModel("", 20.30, "")))
+        }
 
-         cartPresenter.reloadCart()
+        cartPresenter.reloadCart()
 
-         verify(exactly = 1) {
-             view.updatePrice("R$ 42,70")
-             view.reloadCart(any())
-             view.showButtonNext()
-         }
-         verify(exactly = 0) {
-             view.hideTotalPriceView()
-             view.hideButtonNext()
-         }
-     }
+        verifyAll {
+            view.updatePrice("R$ 42,70")
+            view.reloadCart(any())
+            view.showButtonNext()
+        }
+    }
 
-     @Test
-     fun `reload cart with empty list and notify view`() {
-         every { repository.getFoodCart() } returns arrayListOf()
+    @Test
+    fun `reload cart with empty list and notify view`() {
+        every {
+            repository.getFoodCart(capture(slotListener))
+        } answers {
+            slotListener.captured.onSuccess(arrayListOf())
+        }
 
-         cartPresenter.reloadCart()
+        cartPresenter.reloadCart()
 
-         verify(exactly = 1) {
-             view.hideTotalPriceView()
-             view.hideButtonNext()
-         }
-         verify(exactly = 0) {
-             view.updatePrice(any())
-             view.reloadCart(any())
-             view.showButtonNext()
-         }
-     }
+        verifyAll {
+            view.hideTotalPriceView()
+            view.hideButtonNext()
+        }
+    }
 
-     @Test
-     fun `remove item from cart`() {
-         val model = FoodModel("", 22.0, "")
-         every { repository.removeFoodOfCart(model) } returns arrayListOf(model)
+    @Test
+    fun `remove item from cart`() {
+        val model = FoodModel("", 22.0, "")
+        every {
+            repository.removeFoodOfCart(model, capture(slotListener))
+        } answers {
+            slotListener.captured.onSuccess(arrayListOf(model))
+        }
 
-         cartPresenter.removeItem(model)
+        cartPresenter.removeItem(model)
 
-         verify(exactly = 0) {
-             view.hideButtonNext()
-             view.hideTotalPriceView()
-         }
-         verify(exactly = 1) {
-             view.reloadCart(any())
-             view.showButtonNext()
-             view.updatePrice(any())
-         }
-     }
+        verifyAll {
+            view.reloadCart(any())
+            view.showButtonNext()
+            view.updatePrice(any())
+        }
+    }
 
-     @Test
-     fun `remove item from cart and empty cart`() {
-         val model = FoodModel("", 22.0, "")
-         every { repository.removeFoodOfCart(model) } returns arrayListOf()
+    @Test
+    fun `remove item from cart and empty cart`() {
+        val model = FoodModel("", 22.0, "")
+        every {
+            repository.removeFoodOfCart(model, capture(slotListener))
+        } answers {
+            slotListener.captured.onSuccess(arrayListOf())
+        }
 
-         cartPresenter.removeItem(model)
+        cartPresenter.removeItem(model)
 
-         verify(exactly = 1) {
-             view.hideButtonNext()
-             view.hideTotalPriceView()
-         }
-     }
+        verifyAll {
+            view.hideButtonNext()
+            view.hideTotalPriceView()
+        }
+    }
 
-     @Test
-     fun `assert if view is destroyed`() {
-         every { repository.getFoodCart() } returns arrayListOf(FoodModel("", 22.0, ""))
+    @Test
+    fun `assert if view is destroyed`() {
+        every {
+            repository.getFoodCart(capture(slotListener))
+        } answers {
+            slotListener.captured.onSuccess(arrayListOf(
+                FoodModel("", 22.40, "")))
+        }
 
-         cartPresenter.destroy()
-         cartPresenter.reloadCart()
+        cartPresenter.destroy()
+        cartPresenter.reloadCart()
 
-         verify(exactly = 0) {
-             view.hideButtonNext()
-             view.hideTotalPriceView()
-             view.reloadCart(any())
-             view.showButtonNext()
-             view.updatePrice(any())
-         }
-     }*/
+        verify(exactly = 0) {
+            view.hideButtonNext()
+            view.hideTotalPriceView()
+            view.reloadCart(any())
+            view.showButtonNext()
+            view.updatePrice(any())
+        }
+    }
 }
