@@ -10,6 +10,7 @@ interface CartContract {
         fun hideButtonNext()
         fun updatePrice(price: String)
         fun hideTotalPriceView()
+        fun onError(error: String)
     }
 
     interface Presenter: CartAdapter.OnClickItem {
