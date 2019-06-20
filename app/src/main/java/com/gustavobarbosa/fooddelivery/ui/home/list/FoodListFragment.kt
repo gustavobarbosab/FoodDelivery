@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.gustavobarbosa.fooddelivery.R
 import com.gustavobarbosa.fooddelivery.data.database.datasource.LocalFoodDataSource
+import com.gustavobarbosa.fooddelivery.data.network.datasource.RemoteFoodDataSource
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import kotlinx.android.synthetic.main.fragment_food_list.rvFood
 
 class FoodListFragment: Fragment() {
 
     //TODO isso será movido para o injector
-    private val presenter = FoodListPresenter(FoodRepository(LocalFoodDataSource))
+    private val presenter = FoodListPresenter(FoodRepository(LocalFoodDataSource, RemoteFoodDataSource()))
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

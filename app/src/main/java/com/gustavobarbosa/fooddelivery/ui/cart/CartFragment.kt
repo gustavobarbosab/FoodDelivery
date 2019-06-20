@@ -6,20 +6,26 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.gustavobarbosa.fooddelivery.R
 import com.gustavobarbosa.fooddelivery.data.database.datasource.LocalFoodDataSource
+import com.gustavobarbosa.fooddelivery.data.network.datasource.RemoteFoodDataSource
 import com.gustavobarbosa.fooddelivery.data.repository.food.FoodRepository
 import com.gustavobarbosa.fooddelivery.domain.model.FoodModel
+import com.gustavobarbosa.fooddelivery.utils.hideView
+import com.gustavobarbosa.fooddelivery.utils.showView
 import kotlinx.android.synthetic.main.content_logo.view.primaryTitle
 import kotlinx.android.synthetic.main.content_logo.view.secondaryTitle
 import kotlinx.android.synthetic.main.fragment_cart.btCheckout
+import kotlinx.android.synthetic.main.fragment_cart.groupTotalPrice
 import kotlinx.android.synthetic.main.fragment_cart.rvCart
 import kotlinx.android.synthetic.main.fragment_cart.titleCart
+import kotlinx.android.synthetic.main.fragment_cart.tvTotalPrice
 
 class CartFragment : Fragment(), CartContract.View {
 
-    private val presenter = CartPresenter(this,FoodRepository(LocalFoodDataSource))
-    private val adapter = CartAdapter()
+    private val presenter = CartPresenter(this, FoodRepository(LocalFoodDataSource, RemoteFoodDataSource()))
+    private val adapter = CartAdapter(presenter)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +44,7 @@ class CartFragment : Fragment(), CartContract.View {
 
     override fun onResume() {
         super.onResume()
+        presenter.view = this
         presenter.reloadCart()
     }
 
@@ -46,11 +53,24 @@ class CartFragment : Fragment(), CartContract.View {
     }
 
     override fun showButtonNext() {
-        btCheckout.visibility = View.VISIBLE
+        btCheckout.showView(0)
     }
 
     override fun hideButtonNext() {
-        btCheckout.visibility = View.GONE
+        btCheckout.hideView(300)
+    }
+
+    override fun updatePrice(price: String) {
+        groupTotalPrice.visibility = View.VISIBLE
+        tvTotalPrice.text = price
+    }
+
+    override fun hideTotalPriceView() {
+        groupTotalPrice.visibility = View.GONE
+    }
+
+    override fun onError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
     }
 
     override fun onDestroy() {
